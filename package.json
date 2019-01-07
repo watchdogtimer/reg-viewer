@@ -2,7 +2,7 @@
   "name": "reg-viewer",
   "version": "0.1.0",
   "private": true,
-  "website": https://watchdogtimer.github.io/reg-viewer/
+  "website": "https://watchdogtimer.github.io/reg-viewer/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
