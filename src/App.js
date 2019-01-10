@@ -23,7 +23,6 @@ const accessors = [
   "characterBuilders",
   "primetime",
   "none",
-  "other",
   "ignore1",
   "ignore2",
   "sessionA",
@@ -31,31 +30,35 @@ const accessors = [
 ];
 
 const classroomForSessionA = [
-  { name: "Chess (TK-5th) A", room: "room1" },
-  { name: "Coding (2nd-5th)", room: "room2" },
-  { name: "Capoeira (K-2nd) A", room: "room3" },
-  { name: "Circus Arts (TK-5th) A", room: "room4" },
-  { name: "Ceramics (TK-1st) A", room: "room5" },
-  { name: "Flamenco (TK-5th) A", room: "room6" },
-  { name: "Gardening (K-5th) A", room: "room7" },
-  { name: "Soccer (TK-2nd)", room: "room8" },
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", room: "room9" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", room: "room10" },
-  { name: "Yoga (TK-5th) A", room: "room11" },
+  { name: "Chess (TK-5th) A", room: "B-25" },
+  { name: "Yoga (TK-5th) A", room: "Room 5" },
+  { name: "Circus Arts (TK-5th) A", room: "Kindergarten Playground" },
+  { name: "Capoeira (3rd-5th) A", room: "Auditorium" },
+  { name: "Soccer (3rd-5th) A", room: "Grass" },
+  { name: "Coding (2nd-5th) A", room: "Room 2" },
+  { name: "Ceramics (2nd-5th) A", room: "Ceramics" },
+  { name: "Art (K-2nd) A", room: "Kindergarten Tables" },
+  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", room: "Room 1" },
+  { name: "Gardening (K-5th) A", room: "Garden" },
+  { name: "Flamenco (TK-5th) A", room: "B-21" },
+  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", room: "Room 7"},
+  { name: "Tennis (K-1st) A", room: "Basketball Court"},
 ];
 
 const classroomForSessionB = [
-  { name: "Capoeira (3rd-5th) B", room: "room1" },
-  { name: "Ceramics (2nd-5th) B", room: "room2" },
-  { name: "Chess (TK-5th) B", room: "room3" },
-  { name: "Circus Arts (TK-5th) B", room: "room4" },
-  { name: "Coding (2nd-5th) B", room: "room5" },
-  { name: "Flamenco (TK-5th) B", room: "room6" },
-  { name: "Gardening (K-5th) B", room: "room7" },
-  { name: "Soccer (3rd-5th) B", room: "room8" },
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", room: "room9" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", room: "room10" },
-  { name: "Yoga (TK-5th) B", room: "room11" },
+  { name: "Coding (2nd-5th) B", room: "Room 2" },
+  { name: "Ceramics (TK-1) B", room: "Ceramics" },
+  { name: "Chess (TK-5th) B", room: "B-25" },
+  { name: "Soccer (TK-2nd) B", room: "Grass" },
+  { name: "Tennis (2nd-5th) B", room: "Basketball Court" },
+  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", room: "Room 7" },
+  { name: "Yoga (TK-5th) B", room: "Room 5" },
+  { name: "Flamenco (TK-5th) B", room: "B-21" },
+  { name: "Capoeira (K-2nd) B", room: "Auditorium" },
+  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", room: "Room 1" },
+  { name: "Art (3rd-5th) B", room: "Kindergarten Tables" },
+  { name: "Gardening (K-5th) B", room: "Garden" },
+  { name: "Circus Arts (TK-5th) B", room: "Kindergarten Playground" },
 ];
 
 class App extends Component {
@@ -66,42 +69,29 @@ class App extends Component {
       loadTable: false,
       fullData: [],
       dupes: [],
+      invalidRows: [],
       afterSchoolPrograms: [],
       afterSchoolProgramsColumns: [],
       dataMapSessionA : {},
       dataMapSessionB: {},
     };
     this.loadTable = this.loadTable.bind(this);
+    this.showAll = this.showAll.bind(this);
+  }
+
+  showAll() {
+    this.setState({showAll: true});
   }
 
   loadTable(csvRows) {
     const fullData = [];
-    let dataMapSessionA = [
-      { name: "Chess (TK-5th) A", data: [] },
-      { name: "Coding (2nd-5th)", data: [] },
-      { name: "Capoeira (K-2nd) A", data: [] },
-      { name: "Circus Arts (TK-5th) A", data: [] },
-      { name: "Ceramics (TK-1st) A", data: [] },
-      { name: "Flamenco (TK-5th) A", data: [] },
-      { name: "Gardening (K-5th) A", data: [] },
-      { name: "Soccer (TK-2nd)", data: [] },
-      { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", data: [] },
-      { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", data: [] },
-      { name: "Yoga (TK-5th) A", data: [] },
-    ];
-    let dataMapSessionB = [
-      { name: "Capoeira (3rd-5th) B", data: [] },
-      { name: "Ceramics (2nd-5th) B", data: [] },
-      { name: "Chess (TK-5th) B", data: [] },
-      { name: "Circus Arts (TK-5th) B", data: [] },
-      { name: "Coding (2nd-5th) B", data: [] },
-      { name: "Flamenco (TK-5th) B", data: [] },
-      { name: "Gardening (K-5th) B", data: [] },
-      { name: "Soccer (3rd-5th) B", data: [] },
-      { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", data: [] },
-      { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", data: [] },
-      { name: "Yoga (TK-5th) B", data: [] },
-    ];
+    let dataMapSessionA = classroomForSessionA.map(a => {
+      return { name: a.name, data: []};
+    });
+
+    let dataMapSessionB = classroomForSessionB.map(b => {
+      return { name: b.name, data: []};
+    });
 
     let headers = csvRows[0].map((h, idx) => {
       return {'Header': h, 'accessor': accessors[idx] || h }
@@ -109,6 +99,8 @@ class App extends Component {
 
     this.setState({columns: headers});
 
+    let classesA = [];
+    let classesB = [];
     for(let row = 1; row < csvRows.length; row++) {
       let tableRow = {};
 
@@ -134,6 +126,7 @@ class App extends Component {
                                     : tableRow.primetime
                                       ? tableRow.primetime
                                       : tableRow.none ? tableRow.none : 'None';
+
       tableRow.sessionBMerged = tableRow.sessionB != 'None' && tableRow.sessionB != ''
                                 ? tableRow.sessionB
                                 : tableRow.characterBuilders
@@ -164,33 +157,98 @@ class App extends Component {
       if(dataMapSessionBRowData) {
         dataMapSessionBRowData.data.push(tableRow);
       }
+
+      if(!classesA.includes(tableRow.sessionA)) {
+        classesA.push(tableRow.sessionA);
+      }
+      if(!classesB.includes(tableRow.sessionB)) {
+        classesB.push(tableRow.sessionB);
+      }
     }
 
     this.setState({fullData: fullData});
     this.setState({dataMapSessionA: dataMapSessionA});
     this.setState({dataMapSessionB: dataMapSessionB});
-    this.setState({loadTable: true});
 
     ////////// Dupes
     // Find all where
-    const firstName = 'studentFirst';
-    const lastName = 'studentLast';
     const names = {};
 
 
+    const dupeNames = {};
+    let dupeCount = 0;
     const dupes = [];
+    const invalidRows = [];
+    let invalidCount = 0;
     this.state.fullData.forEach(row => {
-      let name = row[firstName] + ' ' + row[lastName];
-      if(names[name]) {
-        dupes.push(Object.assign({}, row));
+      if(!row.studentFirst || !row.studentLast) {
+        invalidCount++;
+        invalidRows.push(Object.assign({}, row));
+        console.log('invalid');
+        console.log(row);
       }
       else {
-        names[name] = 1;
+        let name = row.studentFirst.toLowerCase().trim() + ' ' + row.studentLast.toLowerCase().trim();
+        if (names[name]) {
+          dupeCount++;
+          dupeNames[name] = 1;
+        }
+        else {
+          names[name] = 1;
+        }
+      }
+      if((row.sessionA == 'None' || row.sessionA == '' || row.sessionA == 'N/A') && (row.sessionB == 'None' || row.sessionB == '' || row.sessionB == 'N/A')) {
+        invalidCount++;
+        invalidRows.push(Object.assign({}, row));
+        console.log('invalid');
+        console.log(row);
       }
     });
+
+    // Now that we know the dupes. add all dupes with that value (otherwise, we missed the first occurrence of a dupe, since it was not detected yet
+    this.state.fullData.forEach(row => {
+      if(row.studentFirst && row.studentLast) {
+        let name = row.studentFirst.toLowerCase().trim() + ' ' + row.studentLast.toLowerCase().trim();
+        if (dupeNames[name]) {
+          dupes.push(Object.assign({}, row));
+        }
+      }
+    });
+
+    dupes.sort(this.sortStudents);
+    invalidRows.sort(this.sortStudents);
+
+    this.setState({dupeCount: dupeCount});
     this.setState({dupes: dupes});
+    this.setState({invalidCount: invalidCount});
+    this.setState({invalidRows: invalidRows});
+    this.setState({loadTable: true});
   }
 
+  sortStudents(a, b) {
+    if(a.studentLast < b.studentLast) {
+      return -1;
+    }
+    if(a.studentLast > b.studentLast) {
+      return 1;
+    }
+    else {
+      if(a.studentFirst < b.studentFirst) {
+        return -1;
+      }
+      if(a.studentFirst > b.studentFirst) {
+        return 1;
+      }
+      else {
+        if(parseInt(a.id, 10) < parseInt(b.id, 10)) {
+          return -1;
+        }
+        if(parseInt(a.id, 10) > parseInt(b.id, 10)) {
+          return 1;
+        }
+      }
+    }
+  }
   showError(err) {
     alert(err);
   }
@@ -232,33 +290,53 @@ class App extends Component {
           label="Select CSV"
           onFileLoaded={this.loadTable}
           onError={this.showError}
+          parserOptions={{skipEmptyLines: true}}
         />
         { this.state.loadTable &&
           <>
+            <button onClick={this.showAll}>Show All</button>
+            <h1>{this.state.dupeCount} Duplicates</h1>
+            <CSVLink data={this.state.dupes}>Download Duplicates</CSVLink>
+            <br/>
+            <h1>Merged Master</h1>
+            <CSVLink data={this.state.fullData}>Download Merged Master</CSVLink>
+            <br/>
             <h1>Session A</h1>
           {this.state.dataMapSessionA.map((sessionA) => <><CSVLink
-              data={sessionA.data}>Download {sessionA.name}</CSVLink><br/></>
+              data={sessionA.data}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} enrolled)<br/></>
           )}
             <h1>Session B</h1>
           { this.state.dataMapSessionB.map((sessionB) =>
             <><CSVLink
-              data={sessionB.data}>Download {sessionB.name}</CSVLink><br/></>
+              data={sessionB.data}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} enrolled)<br/></>
           )}
             <br/>
-            <h1>All</h1>
-            <ReactTable
+          {this.state.showAll &&
+           <>
+           <h1>All</h1>
+           < ReactTable
+              filterable
               defaultPageSize={300}
               data={this.state.fullData}
-              columns={this.state.columns}/>
-
-            <h1>Duplicates</h1>
+              columns={this.state.columns}/></>
+          }
+          {this.state.invalidCount > 0 && <>
+            <h1>{this.state.invalidCount} Invalid</h1>
             <ReactTable
+              defaultPageSize={50}
+              data={this.state.invalidRows}
+              columns={this.state.columns}/>
+          </>
+          }
+            <h1>{this.state.dupeCount} Duplicates</h1>
+            <ReactTable
+              defaultPageSize={50}
               data={this.state.dupes}
               columns={this.state.columns}/>
 
-            <h1>After School Programs</h1>
+            <h1>Merged Master</h1>
             <ReactTable
-              defaultPageSize={300}
+              defaultPageSize={this.state.fullData.length}
               data={this.state.fullData}
               columns={afterSchoolProgramsColumns}/>
 
@@ -266,9 +344,9 @@ class App extends Component {
             {
               this.state.dataMapSessionA.map((sessionA) =>
                                                <>
-                                                 <h2>{sessionA.name}</h2>
+                                                 <h2>{sessionA.name} ({sessionA.data.length} enrolled)</h2>
                                                  <ReactTable
-                                                   defaultPageSize={25}
+                                                   defaultPageSize={sessionA.data.length}
                                                    data={sessionA.data}
                                                    columns={afterSchoolProgramsColumns}/>
                                                </>
@@ -278,9 +356,9 @@ class App extends Component {
             {
               this.state.dataMapSessionB.map((sessionB) =>
                                                <>
-                                                 <h2>{sessionB.name}</h2>
+                                                 <h2>{sessionB.name} ({sessionB.data.length} enrolled)</h2>
                                                  <ReactTable
-                                                   defaultPageSize={25}
+                                                   defaultPageSize={sessionB.data.length}
                                                    data={sessionB.data}
                                                    columns={afterSchoolProgramsColumns}/>
                                                </>
