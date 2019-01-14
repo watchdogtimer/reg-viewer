@@ -30,36 +30,39 @@ const accessors = [
 ];
 
 const classroomForSessionA = [
-  { name: "Chess (TK-5th) A", room: "B-25" },
-  { name: "Yoga (TK-5th) A", room: "Room 5" },
-  { name: "Circus Arts (TK-5th) A", room: "Kindergarten Playground" },
-  { name: "Capoeira (3rd-5th) A", room: "Auditorium" },
-  { name: "Soccer (3rd-5th) A", room: "Grass" },
-  { name: "Coding (2nd-5th) A", room: "Room 2" },
-  { name: "Ceramics (2nd-5th) A", room: "Ceramics" },
-  { name: "Art (K-2nd) A", room: "Kindergarten Tables" },
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", room: "Room 1" },
-  { name: "Gardening (K-5th) A", room: "Garden" },
-  { name: "Flamenco (TK-5th) A", room: "B-21" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", room: "Room 7"},
-  { name: "Tennis (K-1st) A", room: "Basketball Court"},
+  { name: "Art (K-2nd) A", class: "Art", room: "Kindergarten Tables" },
+  { name: "Capoeira (3rd-5th) A", class: "Capoeira", room: "Auditorium" },
+  { name: "Ceramics (2nd-5th) A", class: "Ceramics", room: "Ceramics" },
+  { name: "Chess (TK-5th) A", class: "Chess", room: "B-25" },
+  { name: "Circus Arts (TK-5th) A", class: "Circus Arts", room: "Kindergarten Playground" },
+  { name: "Coding (2nd-5th) A", class: "Coding", room: "Room 2" },
+  { name: "Flamenco (TK-5th) A", class: "Flamenco", room: "B-21" },
+  { name: "Gardening (K-5th) A", class: "Gardening", room: "Garden" },
+  { name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass" },
+  { name: "Tennis (K-1st) A", class: "Tennis", room: "Basketball Court"},
+  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", class: "WOW LEGO® Early Engineering 1", room: "Room 1" },
+  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
+  { name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 5" },
 ];
 
 const classroomForSessionB = [
-  { name: "Coding (2nd-5th) B", room: "Room 2" },
-  { name: "Ceramics (TK-1) B", room: "Ceramics" },
-  { name: "Chess (TK-5th) B", room: "B-25" },
-  { name: "Soccer (TK-2nd) B", room: "Grass" },
-  { name: "Tennis (2nd-5th) B", room: "Basketball Court" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", room: "Room 7" },
-  { name: "Yoga (TK-5th) B", room: "Room 5" },
-  { name: "Flamenco (TK-5th) B", room: "B-21" },
-  { name: "Capoeira (K-2nd) B", room: "Auditorium" },
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", room: "Room 1" },
-  { name: "Art (3rd-5th) B", room: "Kindergarten Tables" },
-  { name: "Gardening (K-5th) B", room: "Garden" },
-  { name: "Circus Arts (TK-5th) B", room: "Kindergarten Playground" },
+  { name: "Art (3rd-5th) B", class: "Art", room: "Kindergarten Tables" },
+  { name: "Capoeira (K-2nd) B", class: "Capoeira", room: "Auditorium" },
+  { name: "Ceramics (TK-1) B", class: "Ceramics", room: "Ceramics" },
+  { name: "Chess (TK-5th) B", class: "Chess", room: "B-25" },
+  { name: "Circus Arts (TK-5th) B", class: "Circus Arts", room: "Kindergarten Playground" },
+  { name: "Coding (2nd-5th) B", class: "Coding", room: "Room 2" },
+  { name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21" },
+  { name: "Gardening (K-5th) B", class: "Gardening", room: "Garden" },
+  { name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass" },
+  { name: "Tennis (2nd-5th) B", class: "Tennis", room: "Basketball Court" },
+  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", class: "WOW LEGO® Early Engineering 1", room: "Room 1" },
+  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7" },
+  { name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 5" },
 ];
+
+let rawMasterCsv = [];
+let duplicateCsv = [];
 
 class App extends Component {
   constructor() {
@@ -67,128 +70,177 @@ class App extends Component {
     this.state = {
       columns: [],
       loadTable: false,
-      fullData: [],
+      masterArray: [],
       dupes: [],
       invalidRows: [],
       afterSchoolPrograms: [],
       afterSchoolProgramsColumns: [],
-      dataMapSessionA : {},
-      dataMapSessionB: {},
+      dataMapSessionA : [],
+      dataMapSessionB: [],
     };
-    this.loadTable = this.loadTable.bind(this);
-    this.showAll = this.showAll.bind(this);
+    this.reloadTable = this.reloadTable.bind(this);
+    this.showMaster = this.showMaster.bind(this);
+    this.loadMasterCsv = this.loadMasterCsv.bind(this);
+    this.loadDuplicateCsv = this.loadDuplicateCsv.bind(this);
   }
 
-  showAll() {
-    this.setState({showAll: true});
+  showMaster() {
+    this.setState({showMaster: true});
   }
 
-  loadTable(csvRows) {
-    const fullData = [];
-    let dataMapSessionA = classroomForSessionA.map(a => {
-      return { name: a.name, data: []};
-    });
+  hideAll() {
+    this.setState({showMaster: false});
+  }
 
-    let dataMapSessionB = classroomForSessionB.map(b => {
-      return { name: b.name, data: []};
-    });
+  showClasses() {
+    this.setState({showClasses: true});
+  }
 
-    let headers = csvRows[0].map((h, idx) => {
-      return {'Header': h, 'accessor': accessors[idx] || h }
-    });
+  hideClasses() {
+    this.setState({showClasses: false});
+  }
 
-    this.setState({columns: headers});
+  loadMasterCsv(csvRows) {
+    rawMasterCsv = csvRows;
+    this.reloadTable();
+  }
 
-    let classesA = [];
-    let classesB = [];
-    for(let row = 1; row < csvRows.length; row++) {
-      let tableRow = {};
+  loadDuplicateCsv(csvRows) {
+    duplicateCsv = csvRows;
+    this.reloadTable();
+  }
 
+  computeStudentKey(entry) {
+    return entry.studentFirst.toLowerCase().trim() + ' ' + entry.studentLast.toLowerCase().trim();
+  }
 
-      for(let csvCol = 0; csvCol < csvRows[0].length; csvCol++) {
-        // set tableRow property
-        // property name = header
-        // property value = row value
-        tableRow[headers[csvCol].accessor] = csvRows[row][csvCol];
-      }
+  convertToObject(row, headers) {
+    let tableRow = {};
 
-      // Merging Rules for Concurrent After School Programming
-      // Spanish is always session A
-      // Primetime fills in session A or session B
-      // Character Builders files in session A or session B
-      // Primetime or Character Builders should be shown as after school programming IF session A and session B have classes
-      tableRow.sessionAMerged = tableRow.sessionA != 'None' && tableRow.sessionA != ''
-                                ? tableRow.sessionA
-                                : tableRow.spanish
-                                  ? tableRow.spanish
-                                  : tableRow.characterBuilders
-                                    ? tableRow.characterBuilders
-                                    : tableRow.primetime
-                                      ? tableRow.primetime
-                                      : tableRow.none ? tableRow.none : 'None';
+    for(let csvCol = 0; csvCol < headers.length; csvCol++) {
 
-      tableRow.sessionBMerged = tableRow.sessionB != 'None' && tableRow.sessionB != ''
-                                ? tableRow.sessionB
+      // set tableRow property
+      // property name = header
+      // property value = row value
+      tableRow[headers[csvCol].accessor] = row[csvCol];
+    }
+
+    // Merging Rules for Concurrent After School Programming
+    // Spanish is always session A
+    // Primetime fills in session A or session B
+    // Character Builders files in session A or session B
+    // Primetime or Character Builders should be shown as after school programming IF session A and session B have classes
+    tableRow.sessionAMerged = tableRow.sessionA != 'None' && tableRow.sessionA != ''
+                              ? tableRow.sessionA
+                              : tableRow.spanish
+                                ? tableRow.spanish
                                 : tableRow.characterBuilders
                                   ? tableRow.characterBuilders
                                   : tableRow.primetime
                                     ? tableRow.primetime
                                     : tableRow.none ? tableRow.none : 'None';
 
-      tableRow.afterProgramming = tableRow.characterBuilders
-                                  ? tableRow.characterBuilders
-                                  : tableRow.primetime
-                                    ? tableRow.primetime
-                                    : tableRow.none ? tableRow.none : 'None';
+    tableRow.sessionBMerged = tableRow.sessionB != 'None' && tableRow.sessionB != ''
+                              ? tableRow.sessionB
+                              : tableRow.characterBuilders
+                                ? tableRow.characterBuilders
+                                : tableRow.primetime
+                                  ? tableRow.primetime
+                                  : tableRow.none ? tableRow.none : 'None';
 
-      const roomA = classroomForSessionA.find(c => c.name === tableRow.sessionA);
-      const roomB = classroomForSessionB.find(c => c.name === tableRow.sessionB);
-      tableRow.sessionAClassroom = tableRow.sessionA != 'None' && tableRow.sessionA != '' && roomA ? roomA.room : 'N/A';
-      tableRow.sessionBClassroom = tableRow.sessionB != 'None' && tableRow.sessionB != '' && roomB ? roomB.room : 'N/A';
+    tableRow.afterProgramming = tableRow.characterBuilders
+                                ? tableRow.characterBuilders
+                                : tableRow.primetime
+                                  ? tableRow.primetime
+                                  : tableRow.none ? tableRow.none : 'None';
 
-      fullData.push(tableRow);
+    const roomA = classroomForSessionA.find(c => c.name === tableRow.sessionA);
+    const roomB = classroomForSessionB.find(c => c.name === tableRow.sessionB);
+    tableRow.sessionAClassroom = tableRow.sessionA != 'None' && tableRow.sessionA != '' && roomA ? roomA.room : 'N/A';
+    tableRow.sessionBClassroom = tableRow.sessionB != 'None' && tableRow.sessionB != '' && roomB ? roomB.room : 'N/A';
+    tableRow.classA = tableRow.sessionA != 'None' && tableRow.sessionA != '' && roomA ? roomA.class : 'N/A';
+    tableRow.classB = tableRow.sessionB != 'None' && tableRow.sessionB != '' && roomB ? roomB.class : 'N/A';
 
-      // Push to class specific for sessionA and sessionB
-      const dataMapSessionARowData = dataMapSessionA.find(c => c.name === tableRow.sessionA);
-      if(dataMapSessionARowData) {
-        dataMapSessionARowData.data.push(tableRow);
-      }
-      const dataMapSessionBRowData = dataMapSessionB.find(c => c.name === tableRow.sessionB);
-      if(dataMapSessionBRowData) {
-        dataMapSessionBRowData.data.push(tableRow);
-      }
+    return tableRow;
+  }
 
-      if(!classesA.includes(tableRow.sessionA)) {
-        classesA.push(tableRow.sessionA);
-      }
-      if(!classesB.includes(tableRow.sessionB)) {
-        classesB.push(tableRow.sessionB);
-      }
+  reloadTable() {
+    this.setState({loadMasterCsv: false});
+    let masterArray = [];
+    const duplicateArray = [];
+    const duplicateCount = 0;
+    let removedDuplicates = [];
+
+    let headers = rawMasterCsv[0].map((h, idx) => {
+      return {'Header': h, 'accessor': accessors[idx] || h }
+    });
+
+    this.setState({columns: headers});
+
+    for(let row = 1; row < rawMasterCsv.length; row++) {
+      masterArray.push(this.convertToObject(rawMasterCsv[row], headers));
     }
 
-    this.setState({fullData: fullData});
-    this.setState({dataMapSessionA: dataMapSessionA});
-    this.setState({dataMapSessionB: dataMapSessionB});
+    if(duplicateCsv.length > 0) {
+      for (let row = 1; row < duplicateCsv.length; row++) {
+        duplicateArray.push(this.convertToObject(duplicateCsv[row], headers));
+      }
+      // These should replace the entries which match the same first name and last name of student
+      const duplicateMap = {};
+      duplicateArray.forEach(row => {
+        let name = this.computeStudentKey(row);
+        duplicateMap[name] = row;
+      });
+
+      removedDuplicates = masterArray.filter(entry => duplicateMap[this.computeStudentKey(entry)]);
+      masterArray = masterArray.filter(entry => !duplicateMap[this.computeStudentKey(entry)])
+    }
+
+    let dataMapSessionA = classroomForSessionA.map(a => {
+      return { name: a.name, class: a.class, data: []};
+    });
+
+    let dataMapSessionB = classroomForSessionB.map(b => {
+      return { name: b.name, class: b.class, data: []};
+    });
+
+    let classesA = [];
+    let classesB = [];
+
+    masterArray.forEach(row => {
+      // Push to class specific for sessionA and sessionB
+      const dataMapSessionARowData = dataMapSessionA.find(c => c.name === row.sessionA);
+      if(dataMapSessionARowData) {
+        dataMapSessionARowData.data.push(row);
+      }
+      const dataMapSessionBRowData = dataMapSessionB.find(c => c.name === row.sessionB);
+      if(dataMapSessionBRowData) {
+        dataMapSessionBRowData.data.push(row);
+      }
+
+      if(!classesA.includes(row.sessionA)) {
+        classesA.push(row.sessionA);
+      }
+      if(!classesB.includes(row.sessionB)) {
+        classesB.push(row.sessionB);
+      }
+    });
 
     ////////// Dupes
     // Find all where
     const names = {};
-
-
     const dupeNames = {};
     let dupeCount = 0;
     const dupes = [];
     const invalidRows = [];
     let invalidCount = 0;
-    this.state.fullData.forEach(row => {
+    masterArray.forEach(row => {
       if(!row.studentFirst || !row.studentLast) {
         invalidCount++;
         invalidRows.push(Object.assign({}, row));
-        console.log('invalid');
-        console.log(row);
       }
       else {
-        let name = row.studentFirst.toLowerCase().trim() + ' ' + row.studentLast.toLowerCase().trim();
+        let name = this.computeStudentKey(row);
         if (names[name]) {
           dupeCount++;
           dupeNames[name] = 1;
@@ -200,15 +252,13 @@ class App extends Component {
       if((row.sessionA == 'None' || row.sessionA == '' || row.sessionA == 'N/A') && (row.sessionB == 'None' || row.sessionB == '' || row.sessionB == 'N/A')) {
         invalidCount++;
         invalidRows.push(Object.assign({}, row));
-        console.log('invalid');
-        console.log(row);
       }
     });
 
     // Now that we know the dupes. add all dupes with that value (otherwise, we missed the first occurrence of a dupe, since it was not detected yet
-    this.state.fullData.forEach(row => {
+    masterArray.forEach(row => {
       if(row.studentFirst && row.studentLast) {
-        let name = row.studentFirst.toLowerCase().trim() + ' ' + row.studentLast.toLowerCase().trim();
+        let name = this.computeStudentKey(row);
         if (dupeNames[name]) {
           dupes.push(Object.assign({}, row));
         }
@@ -217,12 +267,17 @@ class App extends Component {
 
     dupes.sort(this.sortStudents);
     invalidRows.sort(this.sortStudents);
+    removedDuplicates.sort(this.sortStudents);
 
+    this.setState({masterArray: masterArray});
+    this.setState({dataMapSessionA: dataMapSessionA});
+    this.setState({dataMapSessionB: dataMapSessionB});
     this.setState({dupeCount: dupeCount});
     this.setState({dupes: dupes});
     this.setState({invalidCount: invalidCount});
     this.setState({invalidRows: invalidRows});
-    this.setState({loadTable: true});
+    this.setState({removedDuplicates: removedDuplicates});
+    this.setState({loadMasterCsv: true});
   }
 
   sortStudents(a, b) {
@@ -249,15 +304,12 @@ class App extends Component {
       }
     }
   }
+
   showError(err) {
     alert(err);
   }
 
   render() {
-    const headers = this.state.columns.map((col, idx) => {
-      return <li key={col.Header + idx}>{col.accessor}</li>
-    });
-
     const afterSchoolProgramsColumns = [
       {'Header': 'Student First Name', 'accessor': 'studentFirst'},
       {'Header': 'Student Last Name', 'accessor': 'studentLast'},
@@ -271,53 +323,74 @@ class App extends Component {
       {'Header': 'Alternate Last Name', 'accessor': 'alternateLast'},
       {'Header': 'Alternate Email', 'accessor': 'alternateEmail'},
       {'Header': 'Alternate Phone', 'accessor': 'alternatePhone'},
-      {'Header': 'Spanish', 'accessor': 'spanish'},
-      {'Header': 'CB', 'accessor': 'characterBuilders'},
-      {'Header': 'PT', 'accessor': 'primetime'},
-      {'Header': 'A', 'accessor': 'sessionA'},
-      {'Header': 'B', 'accessor': 'sessionB'},
-      {'Header': 'A Merged', 'accessor': 'sessionAMerged'},
-      {'Header': 'B Merged', 'accessor': 'sessionBMerged'},
+      {'Header': 'Session A', 'accessor': 'sessionAMerged'},
+      {'Header': 'Session B', 'accessor': 'sessionBMerged'},
       {'Header': 'A Classroom', 'accessor': 'sessionAClassroom'},
       {'Header': 'B Classroom', 'accessor': 'sessionBClassroom'},
       {'Header': 'After Programming', 'accessor': 'afterProgramming'},
     ];
 
+    afterSchoolProgramsColumns.forEach(col => col.key = col.accessor);
+
+    const classArray = [];
+    classroomForSessionA.forEach(classroom => {
+      let sessionA = this.state.dataMapSessionA.find(session => session.class === classroom.class);
+      let sessionB = this.state.dataMapSessionB.find(session => session.class === classroom.class);
+      if(sessionA && sessionB) {
+        classArray.push({
+                          clazz: classroom.class,
+                          data: sessionA.data.concat(sessionB.data)
+                        });
+      }
+    });
+
+    console.log(classArray);
     return (
       <div className="App">
         <CSVReader
           cssClass="csv-reader-input"
-          label="Select CSV"
-          onFileLoaded={this.loadTable}
+          label="Upload Master CSV"
+          onFileLoaded={this.loadMasterCsv}
           onError={this.showError}
           parserOptions={{skipEmptyLines: true}}
         />
-        { this.state.loadTable &&
+        <CSVReader
+          cssClass="csv-reader-input"
+          label="Upload Duplicate Override CSV"
+          onFileLoaded={this.loadDuplicateCsv}
+          onError={this.showError}
+          parserOptions={{skipEmptyLines: true}}
+        />
+        { this.state.loadMasterCsv &&
           <>
-            <button onClick={this.showAll}>Show All</button>
+            <button onClick={this.showMaster}>Show All</button>
             <h1>{this.state.dupeCount} Duplicates</h1>
             <CSVLink data={this.state.dupes}>Download Duplicates</CSVLink>
             <br/>
             <h1>Merged Master</h1>
-            <CSVLink data={this.state.fullData}>Download Merged Master</CSVLink>
+            <CSVLink data={this.state.masterArray}>Download Merged Master</CSVLink>
             <br/>
+            <h1>Classes</h1>
+            {classArray.map((clazz) => <><CSVLink
+              data={clazz.data} headers={afterSchoolProgramsColumns} filename={clazz.clazz}>Download {clazz.clazz}</CSVLink><br/></>
+            )}
             <h1>Session A</h1>
           {this.state.dataMapSessionA.map((sessionA) => <><CSVLink
-              data={sessionA.data}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} enrolled)<br/></>
+              data={sessionA.data} headers={afterSchoolProgramsColumns} filename={sessionA.name}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} entries)<br/></>
           )}
             <h1>Session B</h1>
           { this.state.dataMapSessionB.map((sessionB) =>
             <><CSVLink
-              data={sessionB.data}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} enrolled)<br/></>
+              data={sessionB.data} headers={afterSchoolProgramsColumns} filename={sessionB.name}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} entries)<br/></>
           )}
             <br/>
-          {this.state.showAll &&
+          {this.state.showMaster &&
            <>
            <h1>All</h1>
            < ReactTable
               filterable
               defaultPageSize={300}
-              data={this.state.fullData}
+              data={this.state.masterArray}
               columns={this.state.columns}/></>
           }
           {this.state.invalidCount > 0 && <>
@@ -328,23 +401,33 @@ class App extends Component {
               columns={this.state.columns}/>
           </>
           }
+          {this.state.dupeCount > 0 && <>
             <h1>{this.state.dupeCount} Duplicates</h1>
             <ReactTable
               defaultPageSize={50}
               data={this.state.dupes}
               columns={this.state.columns}/>
-
+          </>
+          }
+          {this.state.removedDuplicates.length > 0 && <>
+            <h1>{this.state.removedDuplicates.length} Removed Duplicates</h1>
+            <ReactTable
+              defaultPageSize={50}
+              data={this.state.removedDuplicates}
+              columns={this.state.columns}/>
+          </>
+          }
             <h1>Merged Master</h1>
             <ReactTable
-              defaultPageSize={this.state.fullData.length}
-              data={this.state.fullData}
+              defaultPageSize={this.state.masterArray.length}
+              data={this.state.masterArray}
               columns={afterSchoolProgramsColumns}/>
 
             <h1>Session A</h1>
             {
               this.state.dataMapSessionA.map((sessionA) =>
                                                <>
-                                                 <h2>{sessionA.name} ({sessionA.data.length} enrolled)</h2>
+                                                 <h2>{sessionA.name} ({sessionA.data.length} entries)</h2>
                                                  <ReactTable
                                                    defaultPageSize={sessionA.data.length}
                                                    data={sessionA.data}
@@ -356,7 +439,7 @@ class App extends Component {
             {
               this.state.dataMapSessionB.map((sessionB) =>
                                                <>
-                                                 <h2>{sessionB.name} ({sessionB.data.length} enrolled)</h2>
+                                                 <h2>{sessionB.name} ({sessionB.data.length} entries)</h2>
                                                  <ReactTable
                                                    defaultPageSize={sessionB.data.length}
                                                    data={sessionB.data}
