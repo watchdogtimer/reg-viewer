@@ -281,17 +281,17 @@ class App extends Component {
   }
 
   sortStudents(a, b) {
-    if(a.studentLast < b.studentLast) {
+    if(a.studentLast.toLowerCase().trim() < b.studentLast.toLowerCase().trim()) {
       return -1;
     }
-    if(a.studentLast > b.studentLast) {
+    if(a.studentLast.toLowerCase().trim() > b.studentLast.toLowerCase().trim()) {
       return 1;
     }
     else {
-      if(a.studentFirst < b.studentFirst) {
+      if(a.studentFirst.toLowerCase().trim() < b.studentFirst.toLowerCase().trim()) {
         return -1;
       }
-      if(a.studentFirst > b.studentFirst) {
+      if(a.studentFirst.toLowerCase().trim() > b.studentFirst.toLowerCase().trim()) {
         return 1;
       }
       else {
