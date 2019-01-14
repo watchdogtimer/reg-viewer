@@ -365,10 +365,10 @@ class App extends Component {
           <>
             <button onClick={this.showMaster}>Show All</button>
             <h1>{this.state.dupeCount} Duplicates</h1>
-            <CSVLink data={this.state.dupes}>Download Duplicates</CSVLink>
+            <CSVLink data={this.state.dupes} filename='duplicates'>Download Duplicates</CSVLink>
             <br/>
             <h1>Merged Master</h1>
-            <CSVLink data={this.state.masterArray}>Download Merged Master</CSVLink>
+            <CSVLink data={this.state.masterArray} filename='merged-master'>Download Merged Master</CSVLink>
             <br/>
             <h1>Classes</h1>
             {classArray.map((clazz) => <><CSVLink
