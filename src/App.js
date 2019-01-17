@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import CSVReader from 'react-csv-reader';
 import ReactTable from "react-table";
@@ -30,35 +30,35 @@ const accessors = [
 ];
 
 const classroomForSessionA = [
-  { name: "Art (K-2nd) A", class: "Art", room: "Kindergarten Tables" },
-  { name: "Capoeira (3rd-5th) A", class: "Capoeira", room: "Auditorium" },
-  { name: "Ceramics (2nd-5th) A", class: "Ceramics", room: "Ceramics" },
-  { name: "Chess (TK-5th) A", class: "Chess", room: "B-25" },
-  { name: "Circus Arts (TK-5th) A", class: "Circus Arts", room: "Kindergarten Playground" },
-  { name: "Coding (2nd-5th) A", class: "Coding", room: "Room 2" },
-  { name: "Flamenco (TK-5th) A", class: "Flamenco", room: "B-21" },
-  { name: "Gardening (K-5th) A", class: "Gardening", room: "Garden" },
-  { name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass" },
-  { name: "Tennis (K-1st) A", class: "Tennis", room: "Basketball Court"},
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", class: "WOW LEGO® Early Engineering 1", room: "Room 1" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
-  { name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 5" },
+  {name: "Art (K-2nd) A", class: "Art", room: "Kindergarten Tables"},
+  {name: "Capoeira (3rd-5th) A", class: "Capoeira", room: "Auditorium"},
+  {name: "Ceramics (2nd-5th) A", class: "Ceramics", room: "Ceramics"},
+  {name: "Chess (TK-5th) A", class: "Chess", room: "B-25"},
+  {name: "Circus Arts (TK-5th) A", class: "Circus Arts", room: "Kindergarten Playground"},
+  {name: "Coding (2nd-5th) A", class: "Coding", room: "Room 2"},
+  {name: "Flamenco (TK-5th) A", class: "Flamenco", room: "B-21"},
+  {name: "Gardening (K-5th) A", class: "Gardening", room: "Garden"},
+  {name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass"},
+  {name: "Tennis (K-1st) A", class: "Tennis", room: "Basketball Court"},
+  {name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", class: "WOW LEGO® Early Engineering 1", room: "Room 1"},
+  {name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
+  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 5"},
 ];
 
 const classroomForSessionB = [
-  { name: "Art (3rd-5th) B", class: "Art", room: "Kindergarten Tables" },
-  { name: "Capoeira (K-2nd) B", class: "Capoeira", room: "Auditorium" },
-  { name: "Ceramics (TK-1) B", class: "Ceramics", room: "Ceramics" },
-  { name: "Chess (TK-5th) B", class: "Chess", room: "B-25" },
-  { name: "Circus Arts (TK-5th) B", class: "Circus Arts", room: "Kindergarten Playground" },
-  { name: "Coding (2nd-5th) B", class: "Coding", room: "Room 2" },
-  { name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21" },
-  { name: "Gardening (K-5th) B", class: "Gardening", room: "Garden" },
-  { name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass" },
-  { name: "Tennis (2nd-5th) B", class: "Tennis", room: "Basketball Court" },
-  { name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", class: "WOW LEGO® Early Engineering 1", room: "Room 1" },
-  { name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7" },
-  { name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 5" },
+  {name: "Art (3rd-5th) B", class: "Art", room: "Kindergarten Tables"},
+  {name: "Capoeira (K-2nd) B", class: "Capoeira", room: "Auditorium"},
+  {name: "Ceramics (TK-1) B", class: "Ceramics", room: "Ceramics"},
+  {name: "Chess (TK-5th) B", class: "Chess", room: "B-25"},
+  {name: "Circus Arts (TK-5th) B", class: "Circus Arts", room: "Kindergarten Playground"},
+  {name: "Coding (2nd-5th) B", class: "Coding", room: "Room 2"},
+  {name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21"},
+  {name: "Gardening (K-5th) B", class: "Gardening", room: "Garden"},
+  {name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass"},
+  {name: "Tennis (2nd-5th) B", class: "Tennis", room: "Basketball Court"},
+  {name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", class: "WOW LEGO® Early Engineering 1", room: "Room 1"},
+  {name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
+  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 5"},
 ];
 
 let rawMasterCsv = [];
@@ -75,7 +75,7 @@ class App extends Component {
       invalidRows: [],
       afterSchoolPrograms: [],
       afterSchoolProgramsColumns: [],
-      dataMapSessionA : [],
+      dataMapSessionA: [],
       dataMapSessionB: [],
     };
     this.reloadTable = this.reloadTable.bind(this);
@@ -117,7 +117,7 @@ class App extends Component {
   convertToObject(row, headers) {
     let tableRow = {};
 
-    for(let csvCol = 0; csvCol < headers.length; csvCol++) {
+    for (let csvCol = 0; csvCol < headers.length; csvCol++) {
 
       // set tableRow property
       // property name = header
@@ -129,7 +129,8 @@ class App extends Component {
     // Spanish is always session A
     // Primetime fills in session A or session B
     // Character Builders files in session A or session B
-    // Primetime or Character Builders should be shown as after school programming IF session A and session B have classes
+    // Primetime or Character Builders should be shown as after school programming IF session A and session B have
+    // classes
     tableRow.sessionAMerged = tableRow.sessionA != 'None' && tableRow.sessionA != ''
                               ? tableRow.sessionA
                               : tableRow.spanish
@@ -172,16 +173,24 @@ class App extends Component {
     let removedDuplicates = [];
 
     let headers = rawMasterCsv[0].map((h, idx) => {
-      return {'Header': h, 'accessor': accessors[idx] || h }
+      return {'Header': h, 'accessor': accessors[idx] || h}
     });
 
-    this.setState({columns: headers});
+    this.setState({columns: [{
+        Header: "",
+        id: "row",
+        maxWidth: 50,
+        filterable: false,
+        Cell: (row) => {
+          return <div>{row.index + 1}</div>;
+        },
+      }].concat(headers)});
 
-    for(let row = 1; row < rawMasterCsv.length; row++) {
+    for (let row = 1; row < rawMasterCsv.length; row++) {
       masterArray.push(this.convertToObject(rawMasterCsv[row], headers));
     }
 
-    if(duplicateCsv.length > 0) {
+    if (duplicateCsv.length > 0) {
       for (let row = 1; row < duplicateCsv.length; row++) {
         duplicateArray.push(this.convertToObject(duplicateCsv[row], headers));
       }
@@ -197,11 +206,11 @@ class App extends Component {
     }
 
     let dataMapSessionA = classroomForSessionA.map(a => {
-      return { name: a.name, class: a.class, data: []};
+      return {name: a.name, class: a.class, data: []};
     });
 
     let dataMapSessionB = classroomForSessionB.map(b => {
-      return { name: b.name, class: b.class, data: []};
+      return {name: b.name, class: b.class, data: []};
     });
 
     let classesA = [];
@@ -210,18 +219,18 @@ class App extends Component {
     masterArray.forEach(row => {
       // Push to class specific for sessionA and sessionB
       const dataMapSessionARowData = dataMapSessionA.find(c => c.name === row.sessionA);
-      if(dataMapSessionARowData) {
+      if (dataMapSessionARowData) {
         dataMapSessionARowData.data.push(row);
       }
       const dataMapSessionBRowData = dataMapSessionB.find(c => c.name === row.sessionB);
-      if(dataMapSessionBRowData) {
+      if (dataMapSessionBRowData) {
         dataMapSessionBRowData.data.push(row);
       }
 
-      if(!classesA.includes(row.sessionA)) {
+      if (!classesA.includes(row.sessionA)) {
         classesA.push(row.sessionA);
       }
-      if(!classesB.includes(row.sessionB)) {
+      if (!classesB.includes(row.sessionB)) {
         classesB.push(row.sessionB);
       }
     });
@@ -235,7 +244,7 @@ class App extends Component {
     const invalidRows = [];
     let invalidCount = 0;
     masterArray.forEach(row => {
-      if(!row.studentFirst || !row.studentLast) {
+      if (!row.studentFirst || !row.studentLast) {
         invalidCount++;
         invalidRows.push(Object.assign({}, row));
       }
@@ -249,15 +258,26 @@ class App extends Component {
           names[name] = 1;
         }
       }
-      if((row.sessionA == 'None' || row.sessionA == '' || row.sessionA == 'N/A') && (row.sessionB == 'None' || row.sessionB == '' || row.sessionB == 'N/A')) {
+      if (
+        (
+          (row.sessionAMerged === 'None' || row.sessionAMerged === '' || row.sessionAMerged === 'N/A') &&
+          (row.sessionBMerged === 'None' || row.sessionBMerged === '' || row.sessionBMerged === 'N/A')
+        )
+        ||
+        (
+          (row.sessionAMerged === 'None' || row.sessionAMerged === '' || row.sessionAMerged === 'N/A') &&
+          (row.sessionBMerged !== 'None' && row.sessionBMerged !== '' && row.sessionBMerged !== 'N/A')
+        )
+      ) {
         invalidCount++;
         invalidRows.push(Object.assign({}, row));
       }
     });
 
-    // Now that we know the dupes. add all dupes with that value (otherwise, we missed the first occurrence of a dupe, since it was not detected yet
+    // Now that we know the dupes. add all dupes with that value (otherwise, we missed the first occurrence of a dupe,
+    // since it was not detected yet
     masterArray.forEach(row => {
-      if(row.studentFirst && row.studentLast) {
+      if (row.studentFirst && row.studentLast) {
         let name = this.computeStudentKey(row);
         if (dupeNames[name]) {
           dupes.push(Object.assign({}, row));
@@ -268,6 +288,8 @@ class App extends Component {
     dupes.sort(this.sortStudents);
     invalidRows.sort(this.sortStudents);
     removedDuplicates.sort(this.sortStudents);
+    dataMapSessionA.forEach(obj => obj.data.sort(this.sortStudents));
+    dataMapSessionB.forEach(obj => obj.data.sort(this.sortStudents));
 
     this.setState({masterArray: masterArray});
     this.setState({dataMapSessionA: dataMapSessionA});
@@ -281,24 +303,24 @@ class App extends Component {
   }
 
   sortStudents(a, b) {
-    if(a.studentLast.toLowerCase().trim() < b.studentLast.toLowerCase().trim()) {
+    if (a.studentLast.toLowerCase().trim() < b.studentLast.toLowerCase().trim()) {
       return -1;
     }
-    if(a.studentLast.toLowerCase().trim() > b.studentLast.toLowerCase().trim()) {
+    if (a.studentLast.toLowerCase().trim() > b.studentLast.toLowerCase().trim()) {
       return 1;
     }
     else {
-      if(a.studentFirst.toLowerCase().trim() < b.studentFirst.toLowerCase().trim()) {
+      if (a.studentFirst.toLowerCase().trim() < b.studentFirst.toLowerCase().trim()) {
         return -1;
       }
-      if(a.studentFirst.toLowerCase().trim() > b.studentFirst.toLowerCase().trim()) {
+      if (a.studentFirst.toLowerCase().trim() > b.studentFirst.toLowerCase().trim()) {
         return 1;
       }
       else {
-        if(parseInt(a.id, 10) < parseInt(b.id, 10)) {
+        if (parseInt(a.id, 10) < parseInt(b.id, 10)) {
           return -1;
         }
-        if(parseInt(a.id, 10) > parseInt(b.id, 10)) {
+        if (parseInt(a.id, 10) > parseInt(b.id, 10)) {
           return 1;
         }
       }
@@ -336,7 +358,7 @@ class App extends Component {
     classroomForSessionA.forEach(classroom => {
       let sessionA = this.state.dataMapSessionA.find(session => session.class === classroom.class);
       let sessionB = this.state.dataMapSessionB.find(session => session.class === classroom.class);
-      if(sessionA && sessionB) {
+      if (sessionA && sessionB) {
         classArray.push({
                           clazz: classroom.class,
                           data: sessionA.data.concat(sessionB.data)
@@ -361,93 +383,97 @@ class App extends Component {
           onError={this.showError}
           parserOptions={{skipEmptyLines: true}}
         />
-        { this.state.loadMasterCsv &&
-          <>
-            <button onClick={this.showMaster}>Show All</button>
-            <h1>{this.state.dupeCount} Duplicates</h1>
-            <CSVLink data={this.state.dupes} filename='duplicates'>Download Duplicates</CSVLink>
-            <br/>
-            <h1>Merged Master</h1>
-            <CSVLink data={this.state.masterArray} filename='merged-master'>Download Merged Master</CSVLink>
-            <br/>
-            <h1>Classes</h1>
-            {classArray.map((clazz) => <><CSVLink
-              data={clazz.data} headers={afterSchoolProgramsColumns} filename={clazz.clazz}>Download {clazz.clazz}</CSVLink><br/></>
-            )}
-            <h1>Session A</h1>
-          {this.state.dataMapSessionA.map((sessionA) => <><CSVLink
-              data={sessionA.data} headers={afterSchoolProgramsColumns} filename={sessionA.name}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} entries)<br/></>
-          )}
-            <h1>Session B</h1>
-          { this.state.dataMapSessionB.map((sessionB) =>
-            <><CSVLink
-              data={sessionB.data} headers={afterSchoolProgramsColumns} filename={sessionB.name}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} entries)<br/></>
-          )}
-            <br/>
-          {this.state.showMaster &&
-           <>
-           <h1>All</h1>
-           < ReactTable
-              filterable
-              defaultPageSize={300}
-              data={this.state.masterArray}
-              columns={this.state.columns}/></>
-          }
-          {this.state.invalidCount > 0 && <>
-            <h1>{this.state.invalidCount} Invalid</h1>
-            <ReactTable
-              defaultPageSize={50}
-              data={this.state.invalidRows}
-              columns={this.state.columns}/>
-          </>
-          }
-          {this.state.dupeCount > 0 && <>
-            <h1>{this.state.dupeCount} Duplicates</h1>
-            <ReactTable
-              defaultPageSize={50}
-              data={this.state.dupes}
-              columns={this.state.columns}/>
-          </>
-          }
-          {this.state.removedDuplicates.length > 0 && <>
-            <h1>{this.state.removedDuplicates.length} Removed Duplicates</h1>
-            <ReactTable
-              defaultPageSize={50}
-              data={this.state.removedDuplicates}
-              columns={this.state.columns}/>
-          </>
-          }
-            <h1>Merged Master</h1>
-            <ReactTable
-              defaultPageSize={this.state.masterArray.length}
-              data={this.state.masterArray}
-              columns={afterSchoolProgramsColumns}/>
+        {this.state.loadMasterCsv &&
+         <>
+           <button onClick={this.showMaster}>Show All</button>
+           <h1>{this.state.dupeCount} Duplicates</h1>
+           <CSVLink data={this.state.dupes} filename='duplicates'>Download Duplicates</CSVLink>
+           <br/>
+           <h1>Merged Master</h1>
+           <CSVLink data={this.state.masterArray} filename='merged-master'>Download Merged Master</CSVLink>
+           <br/>
+           <h1>Classes</h1>
+           {classArray.map((clazz) => <><CSVLink
+             data={clazz.data} headers={afterSchoolProgramsColumns}
+             filename={clazz.clazz}>Download {clazz.clazz}</CSVLink><br/></>
+           )}
+           <h1>Session A</h1>
+           {this.state.dataMapSessionA.map((sessionA) => <><CSVLink
+             data={sessionA.data} headers={afterSchoolProgramsColumns}
+             filename={sessionA.name}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} entries)<br/></>
+           )}
+           <h1>Session B</h1>
+           {this.state.dataMapSessionB.map((sessionB) =>
+                                             <><CSVLink
+                                               data={sessionB.data} headers={afterSchoolProgramsColumns}
+                                               filename={sessionB.name}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} entries)<br/></>
+           )}
+           <br/>
+           {this.state.showMaster &&
+            <>
+              <h1>All</h1>
+              < ReactTable
+                filterable
+                defaultPageSize={300}
+                data={this.state.masterArray}
+                columns={this.state.columns}/></>
+           }
+           {this.state.invalidCount > 0 && <>
+             <h1>{this.state.invalidCount} Invalid</h1>
+             <ReactTable
+               defaultPageSize={50}
+               data={this.state.invalidRows}
+               columns={this.state.columns}/>
+           </>
+           }
+           {this.state.dupeCount > 0 && <>
+             <h1>{this.state.dupeCount} Duplicates</h1>
+             <ReactTable
+               defaultPageSize={50}
+               data={this.state.dupes}
+               columns={this.state.columns}/>
+           </>
+           }
+           {this.state.removedDuplicates.length > 0 && <>
+             <h1>{this.state.removedDuplicates.length} Removed Duplicates</h1>
+             <ReactTable
+               defaultPageSize={50}
+               data={this.state.removedDuplicates}
+               columns={this.state.columns}/>
+           </>
+           }
+           <h1>Merged Master</h1>
+           <ReactTable
+             filterable
+             defaultPageSize={this.state.masterArray.length}
+             data={this.state.masterArray}
+             columns={afterSchoolProgramsColumns}/>
 
-            <h1>Session A</h1>
-            {
-              this.state.dataMapSessionA.map((sessionA) =>
-                                               <>
-                                                 <h2>{sessionA.name} ({sessionA.data.length} entries)</h2>
-                                                 <ReactTable
-                                                   defaultPageSize={sessionA.data.length}
-                                                   data={sessionA.data}
-                                                   columns={afterSchoolProgramsColumns}/>
-                                               </>
-              )
-            }
-            <h1>Session B</h1>
-            {
-              this.state.dataMapSessionB.map((sessionB) =>
-                                               <>
-                                                 <h2>{sessionB.name} ({sessionB.data.length} entries)</h2>
-                                                 <ReactTable
-                                                   defaultPageSize={sessionB.data.length}
-                                                   data={sessionB.data}
-                                                   columns={afterSchoolProgramsColumns}/>
-                                               </>
-              )
-            }
-          </>
+           <h1>Session A</h1>
+           {
+             this.state.dataMapSessionA.map((sessionA) =>
+                                              <>
+                                                <h2>{sessionA.name} ({sessionA.data.length} entries)</h2>
+                                                <ReactTable
+                                                  defaultPageSize={sessionA.data.length}
+                                                  data={sessionA.data}
+                                                  columns={afterSchoolProgramsColumns}/>
+                                              </>
+             )
+           }
+           <h1>Session B</h1>
+           {
+             this.state.dataMapSessionB.map((sessionB) =>
+                                              <>
+                                                <h2>{sessionB.name} ({sessionB.data.length} entries)</h2>
+                                                <ReactTable
+                                                  defaultPageSize={sessionB.data.length}
+                                                  data={sessionB.data}
+                                                  columns={afterSchoolProgramsColumns}/>
+                                              </>
+             )
+           }
+         </>
         }
       </div>
     );
