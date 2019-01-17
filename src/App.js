@@ -202,8 +202,10 @@ class App extends Component {
       });
 
       removedDuplicates = masterArray.filter(entry => duplicateMap[this.computeStudentKey(entry)]);
-      masterArray = masterArray.filter(entry => !duplicateMap[this.computeStudentKey(entry)])
+      masterArray = masterArray.filter(entry => !duplicateMap[this.computeStudentKey(entry)]);
+      masterArray = masterArray.concat(duplicateArray);
     }
+
 
     let dataMapSessionA = classroomForSessionA.map(a => {
       return {name: a.name, class: a.class, data: []};
@@ -263,11 +265,11 @@ class App extends Component {
           (row.sessionAMerged === 'None' || row.sessionAMerged === '' || row.sessionAMerged === 'N/A') &&
           (row.sessionBMerged === 'None' || row.sessionBMerged === '' || row.sessionBMerged === 'N/A')
         )
-        ||
-        (
-          (row.sessionAMerged === 'None' || row.sessionAMerged === '' || row.sessionAMerged === 'N/A') &&
-          (row.sessionBMerged !== 'None' && row.sessionBMerged !== '' && row.sessionBMerged !== 'N/A')
-        )
+        // ||
+        // (
+        //   (row.sessionAMerged === 'None' || row.sessionAMerged === '' || row.sessionAMerged === 'N/A') &&
+        //   (row.sessionBMerged !== 'None' && row.sessionBMerged !== '' && row.sessionBMerged !== 'N/A')
+        // )
       ) {
         invalidCount++;
         invalidRows.push(Object.assign({}, row));
@@ -346,14 +348,39 @@ class App extends Component {
       {'Header': 'Alternate Email', 'accessor': 'alternateEmail'},
       {'Header': 'Alternate Phone', 'accessor': 'alternatePhone'},
       {'Header': 'Session A', 'accessor': 'sessionAMerged'},
-      {'Header': 'Session B', 'accessor': 'sessionBMerged'},
       {'Header': 'A Classroom', 'accessor': 'sessionAClassroom'},
+      {'Header': 'Session B', 'accessor': 'sessionBMerged'},
       {'Header': 'B Classroom', 'accessor': 'sessionBClassroom'},
       {'Header': 'After Programming', 'accessor': 'afterProgramming'},
     ];
 
-    afterSchoolProgramsColumns.forEach(col => col.key = col.accessor);
+    const afterColumns = [
+      {'Header': 'Student First Name', 'accessor': 'studentFirst'},
+      {'Header': 'Student Last Name', 'accessor': 'studentLast'},
+      {'Header': 'Grade', 'accessor': 'grade'},
+      {'Header': 'Teacher', 'accessor': 'teacher'},
+      {'Header': 'Session A', 'accessor': 'sessionAMerged'},
+      {'Header': 'A Classroom', 'accessor': 'sessionAClassroom'},
+      {'Header': 'Session B', 'accessor': 'sessionBMerged'},
+      {'Header': 'B Classroom', 'accessor': 'sessionBClassroom'},
+      {'Header': 'After Programming', 'accessor': 'afterProgramming'},
+    ];
 
+    const paulineColumns = afterSchoolProgramsColumns.concat([
+      {'Header': 'Volunteer Info', 'accessor': 'ignore1'},{'Header': 'Volunteer Info 2', 'accessor': 'ignore2'}]);
+
+    afterSchoolProgramsColumns.forEach(col => {
+      col.key = col.accessor;
+      col.label = col.Header;
+    });
+    afterColumns.forEach(col => {
+      col.key = col.accessor;
+      col.label = col.Header;
+    });
+    paulineColumns.forEach(col => {
+      col.key = col.accessor;
+      col.label = col.Header;
+    });
     const classArray = [];
     classroomForSessionA.forEach(classroom => {
       let sessionA = this.state.dataMapSessionA.find(session => session.class === classroom.class);
@@ -366,7 +393,12 @@ class App extends Component {
       }
     });
 
-    console.log(classArray);
+    const characterBuildersArray = this.state.masterArray.filter(row => row.characterBuilders);
+    characterBuildersArray.sort(this.sortStudents);
+
+    const primetimeArray = this.state.masterArray.filter(row => row.primetime);
+    primetimeArray.sort(this.sortStudents);
+
     return (
       <div className="App">
         <CSVReader
@@ -390,7 +422,16 @@ class App extends Component {
            <CSVLink data={this.state.dupes} filename='duplicates'>Download Duplicates</CSVLink>
            <br/>
            <h1>Merged Master</h1>
-           <CSVLink data={this.state.masterArray} filename='merged-master'>Download Merged Master</CSVLink>
+           <CSVLink data={this.state.masterArray} headers={afterSchoolProgramsColumns} filename='merged-master'>Download Merged Master</CSVLink>
+           <br/>
+           <h1>Pauline</h1>
+           <CSVLink data={this.state.masterArray} headers={paulineColumns} filename='pauline-master'>Download Pauline's Master</CSVLink>
+           <br/>
+           <h1>Character Builders</h1>
+           <CSVLink data={characterBuildersArray} headers={afterColumns} filename='character-builders'>Download Character Builders</CSVLink>
+           <br/>
+           <h1>Primetime</h1>
+           <CSVLink data={primetimeArray} headers={afterColumns} filename='primetime'>Download Primetime</CSVLink>
            <br/>
            <h1>Classes</h1>
            {classArray.map((clazz) => <><CSVLink
