@@ -40,7 +40,7 @@ const classroomForSessionA = [
   {name: "LEGO® Early Engineering 1 (TK-2nd) A", class: "LEGO® Early Engineering 1", room: "Room 8"},
   {name: "Science Detectives (TK-5th)", class: "Science Detectives", room: "Room 2"},
   {name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass"},
-  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Kindergarten Tables"},
+  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 3"},
 ];
 
 const classroomForSessionB = [
@@ -54,7 +54,7 @@ const classroomForSessionB = [
   {name: "LEGO® Elem. Engineering 2 (2nd-5th) B", class: "LEGO® Elem. Engineering 2", room: "Room 8"},
   {name: "Science Detectives (TK-5th) B", class: "Science Detectives", room: "Room 2"},
   {name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass"},
-  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Kindergarten Tables"},
+  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 3"},
 ];
 
 let rawMasterCsv = [];
@@ -434,7 +434,7 @@ class App extends Component {
            <CSVLink data={primetimeArray} headers={afterColumns} filename='primetime'>Download Primetime</CSVLink>
            <br/>
            <h1>Spanish</h1>
-           <CSVLink data={spanishArray} headers={afterColumns} filename='primetime'>Download Spanish</CSVLink>
+           <CSVLink data={spanishArray} headers={afterColumns} filename='spanish'>Download Spanish</CSVLink>
            <br/>
            <h1>Classes</h1>
            {classArray.map((clazz) => <><CSVLink
