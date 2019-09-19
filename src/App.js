@@ -439,18 +439,18 @@ class App extends Component {
            <h1>Classes</h1>
            {classArray.map((clazz) => <><CSVLink
              data={clazz.data} headers={afterSchoolProgramsColumns}
-             filename={clazz.clazz}>Download {clazz.clazz}</CSVLink><br/></>
+             filename={clazz.clazz.replace('.', '_')}>Download {clazz.clazz}</CSVLink><br/></>
            )}
            <h1>Session A</h1>
            {this.state.dataMapSessionA.map((sessionA) => <><CSVLink
              data={sessionA.data} headers={afterSchoolProgramsColumns}
-             filename={sessionA.name}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} entries)<br/></>
+             filename={sessionA.name.replace('.', '_')}>Download {sessionA.name}</CSVLink> ({sessionA.data.length} entries)<br/></>
            )}
            <h1>Session B</h1>
            {this.state.dataMapSessionB.map((sessionB) =>
                                              <><CSVLink
                                                data={sessionB.data} headers={afterSchoolProgramsColumns}
-                                               filename={sessionB.name}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} entries)<br/></>
+                                               filename={sessionB.name.replace('.', '_')}>Download {sessionB.name}</CSVLink> ({sessionB.data.length} entries)<br/></>
            )}
            <br/>
            {this.state.showMaster &&
