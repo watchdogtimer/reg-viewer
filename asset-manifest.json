@@ -1,7 +1,7 @@
 {
   "main.css": "/reg-viewer/static/css/main.7d79dbce.chunk.css",
-  "main.js": "/reg-viewer/static/js/main.53909146.chunk.js",
-  "main.js.map": "/reg-viewer/static/js/main.53909146.chunk.js.map",
+  "main.js": "/reg-viewer/static/js/main.295d9a79.chunk.js",
+  "main.js.map": "/reg-viewer/static/js/main.295d9a79.chunk.js.map",
   "static/css/1.660d644e.chunk.css": "/reg-viewer/static/css/1.660d644e.chunk.css",
   "static/js/1.c7c345fb.chunk.js": "/reg-viewer/static/js/1.c7c345fb.chunk.js",
   "static/js/1.c7c345fb.chunk.js.map": "/reg-viewer/static/js/1.c7c345fb.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/1.660d644e.chunk.css.map": "/reg-viewer/static/css/1.660d644e.chunk.css.map",
   "static/css/main.7d79dbce.chunk.css.map": "/reg-viewer/static/css/main.7d79dbce.chunk.css.map",
   "index.html": "/reg-viewer/index.html",
-  "precache-manifest.4498e4323b3976fe516c5c4f0d6c69bf.js": "/reg-viewer/precache-manifest.4498e4323b3976fe516c5c4f0d6c69bf.js",
+  "precache-manifest.88b5097e2175b1768af7b3da13ec5be8.js": "/reg-viewer/precache-manifest.88b5097e2175b1768af7b3da13ec5be8.js",
   "service-worker.js": "/reg-viewer/service-worker.js"
 }
