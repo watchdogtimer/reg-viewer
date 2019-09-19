@@ -30,35 +30,31 @@ const accessors = [
 ];
 
 const classroomForSessionA = [
-  {name: "Art (K-2nd) A", class: "Art", room: "Kindergarten Tables"},
+  {name: "Art (K-2nd) A", class: "Art", room: "Room 7"},
   {name: "Capoeira (3rd-5th) A", class: "Capoeira", room: "Auditorium"},
-  {name: "Ceramics (2nd-5th) A", class: "Ceramics", room: "Ceramics"},
-  {name: "Chess (TK-5th) A", class: "Chess", room: "B-25"},
+  {name: "Chess (2nd-5th) A", class: "Chess", room: "Room 14"},
   {name: "Circus Arts (TK-5th) A", class: "Circus Arts", room: "Kindergarten Playground"},
-  {name: "Coding (2nd-5th) A", class: "Coding", room: "Room 2"},
+  {name: "Coding (2nd-5th) A", class: "Coding", room: "Room 15"},
   {name: "Flamenco (TK-5th) A", class: "Flamenco", room: "B-21"},
   {name: "Gardening (K-5th) A", class: "Gardening", room: "Garden"},
+  {name: "LEGO® Early Engineering 1 (TK-2nd) A", class: "LEGO® Early Engineering 1", room: "Room 8"},
+  {name: "Science Detectives (TK-5th)", class: "Science Detectives", room: "Room 2"},
   {name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass"},
-  {name: "Tennis (K-1st) A", class: "Tennis", room: "Basketball Court"},
-  {name: "WOW LEGO® Early Engineering 1 (TK-2nd) A", class: "WOW LEGO® Early Engineering 1", room: "Room 1"},
-  {name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) A", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
-  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 5"},
+  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Kindergarten Tables"},
 ];
 
 const classroomForSessionB = [
-  {name: "Art (3rd-5th) B", class: "Art", room: "Kindergarten Tables"},
+  {name: "Art (3rd-5th) B", class: "Art", room: "Room 7"},
   {name: "Capoeira (K-2nd) B", class: "Capoeira", room: "Auditorium"},
-  {name: "Ceramics (TK-1) B", class: "Ceramics", room: "Ceramics"},
   {name: "Chess (TK-5th) B", class: "Chess", room: "B-25"},
   {name: "Circus Arts (TK-5th) B", class: "Circus Arts", room: "Kindergarten Playground"},
-  {name: "Coding (2nd-5th) B", class: "Coding", room: "Room 2"},
+  {name: "Coding (2nd-5th) B", class: "Coding", room: "Room 15"},
   {name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21"},
   {name: "Gardening (K-5th) B", class: "Gardening", room: "Garden"},
+  {name: "LEGO® Elem. Engineering 2 (2nd-5th) B", class: "LEGO® Elem. Engineering 2", room: "Room 8"},
+  {name: "Science Detectives (TK-5th) B", class: "Science Detectives", room: "Room 2"},
   {name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass"},
-  {name: "Tennis (2nd-5th) B", class: "Tennis", room: "Basketball Court"},
-  {name: "WOW LEGO® Early Engineering 1 (TK-2nd) B", class: "WOW LEGO® Early Engineering 1", room: "Room 1"},
-  {name: "WOW LEGO® Elem. Engineering 2 (2nd-5th) B", class: "WOW LEGO® Elem. Engineering 2", room: "Room 7"},
-  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 5"},
+  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Kindergarten Tables"},
 ];
 
 let rawMasterCsv = [];
@@ -399,6 +395,9 @@ class App extends Component {
     const primetimeArray = this.state.masterArray.filter(row => row.primetime);
     primetimeArray.sort(this.sortStudents);
 
+    const spanishArray = this.state.masterArray.filter(row => row.spanish);
+    spanishArray.sort(this.sortStudents);
+
     return (
       <div className="App">
         <CSVReader
@@ -432,6 +431,9 @@ class App extends Component {
            <br/>
            <h1>Primetime</h1>
            <CSVLink data={primetimeArray} headers={afterColumns} filename='primetime'>Download Primetime</CSVLink>
+           <br/>
+           <h1>Spanish</h1>
+           <CSVLink data={spanishArray} headers={afterColumns} filename='primetime'>Download Spanish</CSVLink>
            <br/>
            <h1>Classes</h1>
            {classArray.map((clazz) => <><CSVLink
