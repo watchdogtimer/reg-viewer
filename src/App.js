@@ -24,8 +24,12 @@ const accessors = [
   "primetime",
   "none",
   "ignore1",
-  "ignore2",
+  "ignore1",
+  "ignore3",
+  "ignore4",
+  "ignore5",
   "sessionA",
+  "ignore6",
   "sessionB",
 ];
 
