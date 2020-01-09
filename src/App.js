@@ -30,31 +30,34 @@ const accessors = [
 ];
 
 const classroomForSessionA = [
-  {name: "Art (K-2nd) A", class: "Art", room: "Room 7"},
+  {name: "Art (3rd-5th) A", class: "Art", room: "Room 7"},
+  {name: "Bridge (3rd-5th) A", class: "Bridge", room: "Bookroom"},
   {name: "Capoeira (3rd-5th) A", class: "Capoeira", room: "Auditorium"},
-  {name: "Chess (2nd-5th) A", class: "Chess", room: "Room 14"},
+  {name: "Clay Creations (K-2nd)", class: "Clay Creations", room: "Ceramics"},
+  {name: "Chess (TK-5th) A", class: "Chess", room: "B-24"},
   {name: "Circus Arts (TK-5th) A", class: "Circus Arts", room: "Kindergarten Playground"},
   {name: "Coding (2nd-5th) A", class: "Coding", room: "Room 15"},
   {name: "Flamenco (TK-5th) A", class: "Flamenco", room: "B-21"},
-  {name: "Gardening (K-5th) A", class: "Gardening", room: "Garden"},
   {name: "LEGO® Early Engineering 1 (TK-2nd) A", class: "LEGO® Early Engineering 1", room: "Room 8"},
-  {name: "Science Detectives (TK-5th)", class: "Science Detectives", room: "Room 2"},
-  {name: "Soccer (3rd-5th) A", class: "Soccer", room: "Grass"},
-  {name: "Yoga (TK-5th) A", class: "Yoga", room: "Room 3"},
+  {name: "Music Around The World (TK-1st) A", class: "Music Around The World", room: "Room 3"},
+  {name: "Science Detectives (TK-1st) A", class: "Science Detectives", room: "Room 2"},
+  {name: "Veterinary Science (2nd-5th) A", class: "Veterinary Science", room: "Room 11"},
 ];
 
 const classroomForSessionB = [
-  {name: "Art (3rd-5th) B", class: "Art", room: "Room 7"},
+  {name: "Art (K-2nd) B", class: "Art", room: "Room 7"},
+  {name: "Bridge (3rd-5th) B", class: "Bridge", room: "Bookroom"},
   {name: "Capoeira (K-2nd) B", class: "Capoeira", room: "Auditorium"},
-  {name: "Chess (TK-5th) B", class: "Chess", room: "B-25"},
+  {name: "Clay Creations (3rd-5th) B", class: "Clay Creations", room: "Ceramics"},
+  {name: "Chess (TK-5th) B", class: "Chess", room: "B-24"},
   {name: "Circus Arts (TK-5th) B", class: "Circus Arts", room: "Kindergarten Playground"},
   {name: "Coding (2nd-5th) B", class: "Coding", room: "Room 15"},
   {name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21"},
-  {name: "Gardening (K-5th) B", class: "Gardening", room: "Garden"},
   {name: "LEGO® Elem. Engineering 2 (2nd-5th) B", class: "LEGO® Elem. Engineering 2", room: "Room 8"},
   {name: "Science Detectives (TK-5th) B", class: "Science Detectives", room: "Room 2"},
-  {name: "Soccer (TK-2nd) B", class: "Soccer", room: "Grass"},
-  {name: "Yoga (TK-5th) B", class: "Yoga", room: "Room 3"},
+  {name: "Music Around The World (2nd-5th) B", class: "Music Around The World", room: "Room 3"},
+  {name: "Science Detectives (2nd-5th) B", class: "Science Detectives", room: "Room 2"},
+  {name: "Veterinary Science (TK-1st) B", class: "Veterinary Science", room: "Room 11"},
 ];
 
 let rawMasterCsv = [];
