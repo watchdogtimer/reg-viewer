@@ -403,7 +403,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Fall 2019 - 1:42PM</h1>
+        <h1>Winder 2020</h1>
         <CSVReader
           cssClass="csv-reader-input"
           label="Upload Master CSV"
