@@ -23,8 +23,8 @@ const accessors = [
   "characterBuilders",
   "primetime",
   "none",
-  "ignore1",
-  "ignore1",
+  "pickupPlan",
+  "designatedPeople",
   "ignore3",
   "ignore4",
   "ignore5",
@@ -58,7 +58,6 @@ const classroomForSessionB = [
   {name: "Coding (2nd-5th) B", class: "Coding", room: "Room 15"},
   {name: "Flamenco (TK-5th) B", class: "Flamenco", room: "B-21"},
   {name: "LEGO® Elem. Engineering 2 (2nd-5th) B", class: "LEGO® Elem. Engineering 2", room: "Room 8"},
-  {name: "Science Detectives (TK-5th) B", class: "Science Detectives", room: "Room 2"},
   {name: "Music Around The World (2nd-5th) B", class: "Music Around The World", room: "Room 3"},
   {name: "Science Detectives (2nd-5th) B", class: "Science Detectives", room: "Room 2"},
   {name: "Veterinary Science (TK-1st) B", class: "Veterinary Science", room: "Room 11"},
@@ -355,6 +354,8 @@ class App extends Component {
       {'Header': 'Session B', 'accessor': 'sessionBMerged'},
       {'Header': 'B Classroom', 'accessor': 'sessionBClassroom'},
       {'Header': 'After Programming', 'accessor': 'afterProgramming'},
+      {'Header': 'Pickup Plan', 'accessor': 'pickupPlan'},
+      {'Header': 'Designated Pickup', 'accessor': 'designatedPeople'},
     ];
 
     const afterColumns = [
@@ -407,7 +408,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Winter 2020</h1>
+        <h1>Winter Jan 11 2020</h1>
         <CSVReader
           cssClass="csv-reader-input"
           label="Upload Master CSV"
